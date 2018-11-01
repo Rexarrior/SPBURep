@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "hello-world",
   "version": "0.1.0",
   "private": true,
@@ -40,4 +41,27 @@
     "last 2 versions",
     "not ie <= 8"
   ]
+=======
+  "name": "DashboardApp",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^1.0.0",
+    "style-loader": "^0.23.0",
+    "webpack": "^4.19.0",
+    "webpack-cli": "^3.1.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
+  }
+>>>>>>> 283843539415f3d8ae94b955153fd36ba851b40a
 }
