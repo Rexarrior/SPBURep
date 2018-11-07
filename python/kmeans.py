@@ -122,14 +122,15 @@ def kmeans(X, k, eps=None):
 
     return updated_clusters
 
-X = np.array([
-    np.full(5, 2),
-    np.full(5, 5),
-    np.full(5, 8),
-    np.full(5, 10),
-    np.full(5, 4),
-])
+if (__name__=='__main__'):
+    X = np.array([
+        np.full(5, 2),
+        np.full(5, 5),
+        np.full(5, 8),
+        np.full(5, 10),
+        np.full(5, 4),
+    ])
 
-clasters = kmeans(X, 2)
-print(clasters)
-print(assign_clusters(X, clasters))
+    clasters = kmeans(X, 2)
+    print(clasters)
+    print(assign_clusters(X, clasters))
