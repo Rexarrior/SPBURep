@@ -53,7 +53,7 @@ def rk4(F, t0, x0, t, dt=0.1):
 
 
 
-def plot3d( x):
+def plot3d(x):
     fig = pylab.figure()
     axes = Axes3D(fig)
     t = x[1]
@@ -61,7 +61,7 @@ def plot3d( x):
     x0 = np.array([x[i][0] for i in range(len(x)) ])
     x1 = np.array([x[i][1] for i in range(len(x)) ])
 
-    axes.plot(t,x0,x1)
+    axes.plot(t, x0, x1)
 
 
 

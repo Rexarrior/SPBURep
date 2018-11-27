@@ -8,29 +8,44 @@ def color_segmentation(imagePath, colors):
     img = Image.open(imagePath)
     pix = np.array(img)
     pix.transpose()
-    new_pix = np.empty((pix.shape[0], pix.shape[1]))
-    maxs = pix.max(axis=2)
-    mins = pix.min
-    for i in range(pix.shape[0]):
-        for j in range(pix.shape[1]):
-            p = pix[i][j]
-            pM = np.max(p)
-            pm = np.min(p)
-            pd = pM - pm
-            if (pm == pM):
-                res = 0
-            elif (pM == p[0]):
-                res = 60 * (p[1] - p[2]) / pd
-                if (p[1] < p[2]):
-                    res += 360
-            elif pM == p[1]:
-                res = 60 * (p[2] - p[0])/pd + 120
-            else:
-                res = 60 * (p[0] - p[1])/pd + 240 
-            new_pix[i][j] = res
+    new_pix = np.zeros((pix.shape[0], pix.shape[1]))
+    pm = np.min(pix, axis=2)
+    pM = np.max(pix, axis=2)
+
+    ind_eq = (pm == pM)
+    new_pix[ind_eq] = 0
+    ind_neq = np.logical_not(ind_eq)
+    ind = np.logical_and(pM == pix[:, :, 0], pix[:, :, 1] >= pix[:, :, 2])
+    ind = np.logical_and(ind, ind_neq)  
+    if (len(ind) > 0):
+        curr_pM = pM[ind]
+        curr_pm = pm[ind]
+        curr_pix = pix[ind]
+        new_pix[ind] = 60 * (curr_pix[:, 1] - curr_pix[:, 2]) / (curr_pM - curr_pm)
+    
+    ind = np.logical_and(pix[:, :, 1] < pix[:, :, 2], pix[:, :, 1] < pix[:, :, 2])
+    ind = np.logical_and(ind, ind_neq)
+    if (len(ind) > 0):
+        new_pix[ind] += 360
+
+    ind = pM == pix[:, :, 1] 
+    ind = np.logical_and(ind, ind_neq)  
+    if (len(ind) > 0):
+        curr_pM = pM[ind]
+        curr_pm = pm[ind]
+        curr_pix = pix[ind]
+        new_pix[ind] = 60 * (curr_pix[:, 2] - curr_pix[:, 0])/(curr_pM - curr_pm) + 120
+
+    ind = pM == pix[:, :, 2]
+    ind = np.logical_and(ind, ind_neq)  
+    if (len(ind) > 0):
+        curr_pM = pM[ind]
+        curr_pm = pm[ind]
+        curr_pix = pix[ind]
+        new_pix[ind] = 60 * (curr_pix[:, 2] - curr_pix[:, 0])/(curr_pM - curr_pm) + 240
+
     new_pix = np.reshape(new_pix.ravel(), (-1, 1))
-    clasters = kmeans.kmeans(new_pix, len(colors), 1e-2)
-    # clasters.sort()
+    clasters = kmeans.kmeans(new_pix, len(colors), 1)
     labels = kmeans.assign_clusters(new_pix, clasters)
     labels = np.reshape(labels, (pix.shape[0], pix.shape[1]))
     for i in range(len(colors)):
@@ -38,4 +53,8 @@ def color_segmentation(imagePath, colors):
     img = Image.fromarray(pix)
     img.save('img-processed.jpeg')
 
-color_segmentation('img.jpeg', ((255, 0, 0), (0, 255, 0), (0, 0, 150),  (0, 150, 255)))
+colors = []
+for i in range(0, 256, 1):
+    colors.append((i, i, i))
+color_segmentation('img.jpeg', ((255, 0, 0), (0, 150, 255), (0, 0, 150),
+                                (0, 255, 0)))
