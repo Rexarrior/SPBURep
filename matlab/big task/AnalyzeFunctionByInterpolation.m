@@ -5,7 +5,7 @@ linearInterpolation = @(x,y) LinearSystemInterpolation(x, y);
 
 
 if nargin < 4
-    eps = 1e-5;
+    eps = 1e-3;
 end
 disp('Анализируем ф-ю:');
 %lagrange
