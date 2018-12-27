@@ -1,0 +1,7 @@
+﻿  1.cpp
+d:\programming\spburep\multithreading\openmp\1\1\1.cpp(66): warning C4244: инициализация: преобразование "double" в "::size_t", возможна потеря данных
+d:\programming\spburep\multithreading\openmp\1\1\1.cpp(73): warning C4018: <=: несоответствие типов со знаком и без знака
+d:\programming\spburep\multithreading\openmp\1\1\1.cpp(89): warning C4018: <: несоответствие типов со знаком и без знака
+d:\programming\spburep\multithreading\openmp\1\1\1.cpp(106): warning C4018: <: несоответствие типов со знаком и без знака
+  1.vcxproj -> D:\programming\SPBURep\multithreading\OpenMP\1\Debug\1.exe
+  1.vcxproj -> D:\programming\SPBURep\multithreading\OpenMP\1\Debug\1.pdb (Partial PDB)
